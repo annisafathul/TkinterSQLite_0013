@@ -71,6 +71,7 @@ def prediksi_diabetes(gula_darah, bmi, riwayat_ortu):
                     "Risiko Rendah (Normal)",
                     "#5094fa"
                 )
+
 def tambah_pasien(nama, usia, gula, bmi, riwayat, hasil):
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -84,5 +85,4 @@ def tambah_pasien(nama, usia, gula, bmi, riwayat, hasil):
 
     conn.commit()
     conn.close()
-
 
