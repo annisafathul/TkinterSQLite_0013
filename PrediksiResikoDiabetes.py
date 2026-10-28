@@ -86,3 +86,19 @@ def tambah_pasien(nama, usia, gula, bmi, riwayat, hasil):
     conn.commit()
     conn.close()
 
+def get_pasien():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, nama_pasien, usia, gula_darah,
+               bmi, riwayat_ortu, hasil_prediksi
+        FROM pasien
+        ORDER BY id DESC
+    """)
+
+    data = cursor.fetchall()
+    conn.close()
+    return data
+
+
