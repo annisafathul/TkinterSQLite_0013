@@ -101,4 +101,84 @@ def get_pasien():
     conn.close()
     return data
 
+def submit_data():
+    nama = entry_nama.get().strip()
+    riwayat = combo_riwayat.get()
+
+    if not nama:
+        messagebox.showerror(
+            "Error Validasi",
+            "Nama pasien tidak boleh kosong!"
+        )
+        return
+
+    if not entry_usia.get().strip() or not entry_gula.get().strip() or not entry_bmi.get().strip():
+        messagebox.showerror(
+            "Error Validasi",
+            "Semua data harus diisi!"
+        )
+        return
+
+    try:
+        usia = int(entry_usia.get())
+        gula = float(entry_gula.get())
+        bmi = float(entry_bmi.get())
+
+    except ValueError:
+        messagebox.showerror(
+            "Error Validasi",
+            "Usia, gula darah, dan BMI harus berupa angka valid!"
+        )
+        return
+
+    if usia < 1 or usia > 120:
+        messagebox.showerror(
+            "Error Validasi",
+            "Usia harus antara 1 sampai 120 tahun!"
+        )
+        return
+
+    if gula <= 0:
+        messagebox.showerror(
+            "Error Validasi",
+            "Gula darah harus lebih dari 0!"
+        )
+        return
+
+    if bmi <= 0:
+        messagebox.showerror(
+            "Error Validasi",
+            "BMI harus lebih dari 0!"
+        )
+        return
+
+    if riwayat not in ("Ya", "Tidak"):
+        messagebox.showerror(
+            "Error Validasi",
+            "Pilih riwayat diabetes orang tua!"
+        )
+        return
+
+    hasil, warna = prediksi_diabetes(gula, bmi, riwayat)
+
+    label_hasil.config(
+        text=hasil,
+        fg=warna
+    )
+
+    try:
+        tambah_pasien(
+            nama, usia, gula, bmi, riwayat, hasil
+        )
+
+        messagebox.showinfo(
+            "Berhasil",
+            "Data pasien berhasil disimpan!"
+        )
+
+    except sqlite3.Error as e:
+        messagebox.showerror(
+            "Database Error",
+            f"Gagal menyimpan data: {e}"
+        )
 
