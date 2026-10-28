@@ -182,3 +182,56 @@ def submit_data():
             f"Gagal menyimpan data: {e}"
         )
 
+def lihat_data():
+    jendela = tk.Toplevel(root)
+    jendela.title("Riwayat Data Pasien")
+    jendela.geometry("1100x400")
+
+    kolom = (
+        "id", "nama_pasien", "usia", "gula_darah",
+        "bmi", "riwayat_ortu", "hasil_prediksi"
+    )
+
+    tabel = ttk.Treeview(
+        jendela,
+        columns=kolom,
+        show="headings"
+    )
+
+    judul = [
+        "ID", "Nama Pasien", "Usia",
+        "Gula Darah", "BMI", "Riwayat Ortu",
+        "Hasil Prediksi"
+    ]
+
+    lebar = [50, 140, 70, 100, 80, 110, 500]
+
+    for col, text, width in zip(kolom, judul, lebar):
+        tabel.heading(col, text=text)
+        tabel.column(col, width=width, anchor="center")
+
+    scrollbar = ttk.Scrollbar(
+        jendela, orient="vertical",
+        command=tabel.yview
+    )
+    tabel.configure(yscrollcommand=scrollbar.set)
+
+    tabel.pack(
+        side="left", fill="both",
+        expand=True, padx=(10, 0), pady=10
+    )
+    scrollbar.pack(
+        side="right", fill="y",
+        padx=(0, 10), pady=10
+    )
+
+    data = get_pasien()
+
+    for pasien in data:
+        tabel.insert("", tk.END, values=pasien)
+
+    if not data:
+        messagebox.showinfo(
+            "Informasi",
+            "Belum ada data pasien yang tersimpan."
+        )
