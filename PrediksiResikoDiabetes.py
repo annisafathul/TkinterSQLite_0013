@@ -237,3 +237,95 @@ def lihat_data():
         )
 
 init_db()
+
+root = tk.Tk()
+root.title("Aplikasi Prediksi Risiko Diabetes")
+root.geometry("600x530")
+root.resizable(False, False)
+
+
+tk.Label(
+    root,
+    text="Aplikasi Prediksi Risiko Diabetes",
+    font=("Arial", 16, "bold")
+).pack(pady=15)
+
+
+
+frame = tk.Frame(root)
+frame.pack(pady=5)
+
+
+tk.Label(
+    frame, text="Nama Pasien"
+).grid(row=0, column=0, sticky="w", padx=10, pady=7)
+
+entry_nama = tk.Entry(frame, width=35)
+entry_nama.grid(row=0, column=1, pady=7)
+
+
+tk.Label(
+    frame, text="Usia (tahun)"
+).grid(row=1, column=0, sticky="w", padx=10, pady=7)
+
+entry_usia = tk.Entry(frame, width=35)
+entry_usia.grid(row=1, column=1, pady=7)
+
+
+tk.Label(
+    frame, text="Gula Darah (mg/dL)"
+).grid(row=2, column=0, sticky="w", padx=10, pady=7)
+
+entry_gula = tk.Entry(frame, width=35)
+entry_gula.grid(row=2, column=1, pady=7)
+
+
+tk.Label(
+    frame, text="BMI"
+).grid(row=3, column=0, sticky="w", padx=10, pady=7)
+
+entry_bmi = tk.Entry(frame, width=35)
+entry_bmi.grid(row=3, column=1, pady=7)
+
+# Pilihan riwayat diabetes orang tua
+tk.Label(
+    frame, text="Riwayat Diabetes Ortu"
+).grid(row=4, column=0, sticky="w", padx=10, pady=7)
+
+combo_riwayat = ttk.Combobox(
+    frame,
+    values=["Ya", "Tidak"],
+    state="readonly",
+    width=32
+)
+combo_riwayat.grid(row=4, column=1, pady=7)
+combo_riwayat.set("Tidak")
+
+
+tk.Button(
+    root,
+    text="Prediksi dan Simpan Data",
+    command=submit_data,
+    width=25,
+    bg="#3498db",
+    fg="white"
+).pack(pady=12)
+
+
+
+label_hasil = tk.Label(
+    root,
+    text="Hasil Prediksi: -",
+    font=("Arial", 11, "bold"),
+    wraplength=550
+)
+label_hasil.pack(pady=10)
+
+tk.Button(
+    root,
+    text="Lihat Data",
+    command=lihat_data,
+    width=20,
+    bg="#3498db",
+    fg="white"
+).pack(pady=8)
