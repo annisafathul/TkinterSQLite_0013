@@ -235,3 +235,5 @@ def lihat_data():
             "Informasi",
             "Belum ada data pasien yang tersimpan."
         )
+
+init_db()
