@@ -329,3 +329,5 @@ tk.Button(
     bg="#3498db",
     fg="white"
 ).pack(pady=8)
+
+root.mainloop()
